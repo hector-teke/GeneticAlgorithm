@@ -85,8 +85,20 @@ def crossover(pa1, pa2):
 
     return new1, new2
 
+# Mutate each bit of children vectors with a probability of 1%
+def mutate(s, prob=1):
+    new = ""
 
+    for bit in s:
+        if random.randint(0,100) < prob:
+            bit = str(1 - int(bit))   # Switch the bit
 
+        new += bit
+
+    return new
+
+# Complete the generation with all the necessary children
+def
 
 
 
@@ -116,3 +128,6 @@ if __name__ == '__main__':
     print("HI1: ", new1)
     print("HI2: ", new2)
 
+    new2 = mutate(new2)
+
+    print("Mut: ", new2)
