@@ -79,7 +79,11 @@ def roulette(solutions):
 # One-point crossover of two parents -> two childrens
 def crossover(pa1, pa2):
     point = random.randint(0, len(pa1))
-    print(point)
+
+    new1 = pa1[0:point] + pa2[point:len(pa2)]
+    new2 = pa2[0:point] + pa1[point:len(pa1)]
+
+    return new1, new2
 
 
 
@@ -107,5 +111,8 @@ if __name__ == '__main__':
     print("PA1: ", pa1)
     print("PA2: ", pa2)
 
-    crossover(pa1, pa2)
+    new1, new2 = crossover(pa1, pa2)
+
+    print("HI1: ", new1)
+    print("HI2: ", new2)
 
