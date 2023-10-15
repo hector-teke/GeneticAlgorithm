@@ -44,6 +44,51 @@ def next_gen (solutions, perc=20):
 
     return nextgen
 
+# Roulette selection: selects 2 mutually different parents from the set of solutions
+def roulette(solutions):
+    pa1 = None
+    pa2 = None
+    total = sum(solutions.values())
+
+    rnum = random.randint(0, total)
+
+    i = 0
+    for k in solutions.keys():
+        i += solutions[k]
+        if i >= rnum:
+            pa1 = k
+            break
+
+    while True:     # Avoid the problem of choosing the same parents
+
+        rnum = random.randint(0, total)
+
+        i = 0
+        for k in solutions.keys():
+            i += solutions[k]
+            if i >= rnum:
+                pa2 = k
+                break
+
+        if pa1 != pa2:  # Check that the parents are different
+            break
+
+    return pa1, pa2
+
+
+# One-point crossover of two parents -> two childrens
+def crossover(pa1, pa2):
+    point = random.randint(0, len(pa1))
+    print(point)
+
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
 
@@ -53,8 +98,14 @@ if __name__ == '__main__':
 
     print(s)
 
-    print(next_gen(s))
+    s = next_gen(s)
 
-    # obtengo los valores
-    # ordeno los valores
-    # saco desde el valor mas alto hasta que no queden
+    print(s)
+
+    pa1, pa2 = roulette(s)
+
+    print("PA1: ", pa1)
+    print("PA2: ", pa2)
+
+    crossover(pa1, pa2)
+
