@@ -74,3 +74,18 @@ class ObjFunction:
             return i
         else:
             return i - 1
+
+    def optimal_solution(self, function, size=50):
+        if function == self.f1:
+            return int(size/2)
+        elif function == self.f2:
+            return size - 2
+        elif function == self.f3:
+            return pow(2, int(size/2)) - 1
+        elif function == self.f4:
+            return pow(2, size) - 1
+        elif function == self.f5:
+            return size
+
+        return None
+
