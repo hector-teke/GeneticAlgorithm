@@ -3,7 +3,7 @@ import random
 
 # Generation of first generation of 50 solutions
 def first_gen(length=50, population=50):
-    solutions = []
+    solutions = dict() #Solutions are stored with their quality value
 
     for i in range(population):
 
@@ -11,8 +11,9 @@ def first_gen(length=50, population=50):
         for j in range(length):
             s += str(random.randint(0, 1))
 
-        solutions.append(s)
+        solutions[s] = None
 
+    evaluate()
     return solutions
 
 
@@ -20,5 +21,6 @@ def first_gen(length=50, population=50):
 
 def evaluate(solutions, function):
     pass
+
 
 print(first_gen())
