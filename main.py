@@ -24,17 +24,37 @@ def evaluate(solutions, function):
             solutions[s] = function(s)
     return solutions
 
+# Move best 20% of the population into the next generation
+def next_gen (solutions, perc=20):
+    values = sorted(solutions.values(), reverse=True)  # List of values from the highest
+    size = int(len(values) * perc / 100)  # Size of survivors set
 
+    nextgen = dict()
 
+    for val in values[0:size]:
 
+        key = None
+        for k, v in solutions.items():    # Take the first key that has this value
+            if v == val:
+                key = k
+                break
 
+        nextgen[key] = val        # Add key-value to the new set of solutions
+        solutions.pop(key)      # Removes key-value from original
 
-
+    return nextgen
 
 
 if __name__ == '__main__':
 
     f = ObjFunction()
 
-    print(first_gen(f.f1))
-    print(len(first_gen(f.f1)))
+    s = first_gen(f.f1)
+
+    print(s)
+
+    print(next_gen(s))
+
+    # obtengo los valores
+    # ordeno los valores
+    # saco desde el valor mas alto hasta que no queden
