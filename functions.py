@@ -1,6 +1,7 @@
 
 class ObjFunction:
-    def F1(cad):
+
+    def f1(self, cad):
         # F1: Counts the number of isolated "1" in the string
         # Max: 25
 
@@ -21,7 +22,7 @@ class ObjFunction:
 
         return cont
 
-    def F2(cad):
+    def f2(self, cad):
         # F2: Number of "0" between "1":  10*1
         # Max: 48
 
@@ -40,7 +41,7 @@ class ObjFunction:
 
         return sum
 
-    def F3(cad):
+    def f3(self, cad):
         # F3: Decimal value of the first half minus decimal value of the second half
         # Max: 33.554.431
 
@@ -49,7 +50,7 @@ class ObjFunction:
 
         return int(subStr1, 2) - int(subStr2, 2)
 
-    def F4(cad):
+    def f4(self, cad):
         # F4: Decimal value of the reverse bit string
         # Max: 1125899906842623
 
@@ -57,11 +58,11 @@ class ObjFunction:
 
         return int(rev, 2)
 
-    def F5(cad):
+    def f5(self, cad):
         # F5: How far is the first "1" from the left (10 if there's no "1")
         # Max: 50
 
-        found = False;
+        found = False
         i = 0
         while i < len(cad) and not found:
             c = cad[i]
