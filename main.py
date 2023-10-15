@@ -14,7 +14,7 @@ def first_gen(function, length=50, population=50):
 
         solutions[s] = None
 
-    return evaluate(solutions, function)
+    return evaluate(solutions, function), best_found(solutions)
 
 
 # Evaluation with quality function
@@ -98,10 +98,36 @@ def mutate(s, prob=1):
     return new
 
 # Complete the generation with all the necessary children
-def
+def complete_generation(solutions, function):
+    # At the begining solutions have just 10 vectors
+    new_set = solutions.copy() # Original cannot be modified for roulette selection
 
+    for i in range(20):
+        while True:
+            pa1, pa2 = roulette(solutions)
+            ch1, ch2 = crossover(pa1, pa2)
+            ch1 = mutate(ch1)
+            ch2 = mutate(ch2)
 
+            # This 'if' makes the children to be generated again if they are repeated
+            if ch1 not in new_set and ch2 not in new_set and ch1 != ch2:
+                new_set[ch1] = None
+                new_set[ch2] = None
+                break
 
+    return evaluate(new_set, function), best_found(new_set)
+
+# Find the best-found solution
+def best_found(solutions):
+    val = sorted(solutions.values(), reverse=True)[0]  # Highest value
+
+    key = None
+    for k, v in solutions.items():  # Take the first key that has this value
+        if v == val:
+            key = k
+            break
+
+    return key, val
 
 
 
@@ -110,24 +136,17 @@ if __name__ == '__main__':
 
     f = ObjFunction()
 
-    s = first_gen(f.f1)
+    s, best = first_gen(f.f1)
 
     print(s)
+    print("Best: ", best)
 
     s = next_gen(s)
 
+    #print(s)
+
+    s, best = complete_generation(s, f.f1)
+
     print(s)
+    print("Best: ", best)
 
-    pa1, pa2 = roulette(s)
-
-    print("PA1: ", pa1)
-    print("PA2: ", pa2)
-
-    new1, new2 = crossover(pa1, pa2)
-
-    print("HI1: ", new1)
-    print("HI2: ", new2)
-
-    new2 = mutate(new2)
-
-    print("Mut: ", new2)
