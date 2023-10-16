@@ -98,7 +98,7 @@ def mutate(s, prob=1):
     return new
 
 # Complete the generation with all the necessary children
-def complete_generation(solutions, function):
+def complete_generation(solutions, function, prob=1):
     # At the begining solutions have just 10 vectors
     new_set = solutions.copy() # Original cannot be modified for roulette selection
 
@@ -106,8 +106,8 @@ def complete_generation(solutions, function):
         while True:
             pa1, pa2 = roulette(solutions)
             ch1, ch2 = crossover(pa1, pa2)
-            ch1 = mutate(ch1)
-            ch2 = mutate(ch2)
+            ch1 = mutate(ch1, prob)
+            ch2 = mutate(ch2, prob)
 
             # This 'if' makes the children to be generated again if they are repeated
             if ch1 not in new_set and ch2 not in new_set and ch1 != ch2:
@@ -129,6 +129,31 @@ def best_found(solutions):
 
     return key, val
 
+# Genetic Algorithm
+def genetic_algorithm(function, optimal, generations=1000, length=50, population=50, probability=1):
+    best_solutions = dict()
+    solutions, best = first_gen(function, length, population)
+
+    # Store the best solution from first generation
+    key, value = best
+    best_solutions[key] = value
+    if value == optimal:    # If the best-found solution is optimal the execution ends
+        return (key, value), best_solutions
+
+    for i in range(generations):
+        solutions = next_gen(solutions)
+        solutions, best = complete_generation(solutions, function, probability)
+
+        # Store the best solution from current generation
+        key, value = best
+        best_solutions[key] = value
+        if value == optimal:       # If the best-found solution is optimal the execution ends
+            return (key, value), best_solutions
+
+    return best_found(solutions), best_solutions
+
+
+
 
 
 
@@ -136,17 +161,6 @@ if __name__ == '__main__':
 
     f = ObjFunction()
 
-    s, best = first_gen(f.f1)
-
-    print(s)
-    print("Best: ", best)
-
-    s = next_gen(s)
-
-    #print(s)
-
-    s, best = complete_generation(s, f.f1)
-
-    print(s)
-    print("Best: ", best)
-
+    best, history = genetic_algorithm(f.f1, f.optimal_solution(f.f1))
+    # History keeps the best solution from every generation
+    print(best)
