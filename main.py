@@ -161,6 +161,7 @@ if __name__ == '__main__':
 
     f = ObjFunction()
 
-    best, history = genetic_algorithm(f.f1, f.optimal_solution(f.f1))
+    best, history = genetic_algorithm(f.f1, f.optimal_solution(f.f1, 50))
     # History keeps the best solution from every generation
     print(best)
+    #print(history)
