@@ -160,8 +160,9 @@ def genetic_algorithm(function, optimal, generations=1000, length=50, population
 if __name__ == '__main__':
 
     f = ObjFunction()
+    function = f.f1
 
-    best, history = genetic_algorithm(f.f1, f.optimal_solution(f.f1, 50))
+    best, history = genetic_algorithm(function, f.optimal_solution(function, 50))
     # History keeps the best solution from every generation
     print(best)
     #print(history)
