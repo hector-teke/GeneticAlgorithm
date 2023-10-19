@@ -166,3 +166,13 @@ if __name__ == '__main__':
     # History keeps the best solution from every generation
     print(best)
     #print(history)
+
+    """
+    We have 40050 evaluations (50 + 1000 * 40)
+    
+    We have to run it 30 times
+         - Best, worst, average and median solution quality and the standard deviation
+         - Convergence plot:    x=Generations   y=f(x)
+           We can show the 30 runs in the same graph
+         - Average convergence graph
+    """
